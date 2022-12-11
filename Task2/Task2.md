@@ -61,7 +61,7 @@
 		
 	создаем 2 виртуальных сетевых аддаптера (по одной на каждую ВМ)	
 	
-	`or i in 'seq 1 2'; do
+	````for i in `seq 1 2`; do
 		az network nic create \
 			--resource-group GL-Task2 \
 			--name myNic$i \
@@ -70,11 +70,11 @@
 			--network-security-group myNetworkSecurityGroup \
 			--lb-name GLTask2Balancer \
 			--lb-address-pools myBackEndPool
-	done`
+	done````
 	
 6. Создадим конфигурации ВМ используя cloud-init. Для этого в текущей оболочке создадим txt файл
-
-<#cloud-config
+````
+#cloud-config
 package_upgrade: true
 packages:
   - nginx
@@ -112,7 +112,8 @@ runcmd:
   - cd "/home/azureuser/myapp"
   - npm init
   - npm install express -y
-  - nodejs index.js>
+  - nodejs index.js 
+  ````
   
  7. Создадим группу доступности
  
@@ -122,7 +123,7 @@ runcmd:
 		
 	Теперь мы можем создать виртуальные машины
 	
-	`for i in 'seq 1 2'; do
+	````for i in `seq 1 2`; do
 		az vm create \
 			--resource-group GL-Task2 \
 			--name myVM$i \
@@ -133,4 +134,4 @@ runcmd:
 			--generate-ssh-keys \
 			--custom-data cloud-init.txt \
 			--no-wait
-	done`
+	done````
