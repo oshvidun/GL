@@ -135,3 +135,9 @@ runcmd:
 			--custom-data cloud-init.txt \
 			--no-wait
 	done````
+
+![GL-Task2](https://user-images.githubusercontent.com/85619391/206907123-9260fad5-2359-4450-838d-3fe90e225db8.png)
+
+![Task2](https://user-images.githubusercontent.com/85619391/206907830-0152b0c0-d21c-40eb-8920-1cecfac9d4e6.gif)
+
+
