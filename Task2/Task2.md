@@ -57,6 +57,7 @@
 		--destination-port-range 80
 		
 	создаем 2 виртуальных сетевых аддаптера (по одной на каждую ВМ)	
+	
 	for i in `seq 1 2`; do
 		az network nic create \
 			--resource-group GL-Task2 \
