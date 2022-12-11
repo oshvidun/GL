@@ -74,7 +74,7 @@
 	
 6. Создадим конфигурации ВМ используя cloud-init. Для этого в текущей оболочке создадим txt файл
 
-#cloud-config
+<#cloud-config
 package_upgrade: true
 packages:
   - nginx
@@ -112,7 +112,7 @@ runcmd:
   - cd "/home/azureuser/myapp"
   - npm init
   - npm install express -y
-  - nodejs index.js
+  - nodejs index.js>
   
  7. Создадим группу доступности
  
