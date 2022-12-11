@@ -61,7 +61,7 @@
 		
 	создаем 2 виртуальных сетевых аддаптера (по одной на каждую ВМ)	
 	
-	`or i in `seq 1 2`; do
+	`or i in 'seq 1 2'; do
 		az network nic create \
 			--resource-group GL-Task2 \
 			--name myNic$i \
@@ -122,7 +122,7 @@ runcmd:
 		
 	Теперь мы можем создать виртуальные машины
 	
-	`for i in `seq 1 2`; do
+	`for i in 'seq 1 2'; do
 		az vm create \
 			--resource-group GL-Task2 \
 			--name myVM$i \
