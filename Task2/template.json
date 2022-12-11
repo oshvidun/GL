@@ -49,13 +49,6 @@
             "sku": {
                 "name": "Basic",
                 "tier": "Regional"
-            },
-            "properties": {
-                "ipAddress": "20.8.120.4",
-                "publicIPAddressVersion": "IPv4",
-                "publicIPAllocationMethod": "Dynamic",
-                "idleTimeoutInMinutes": 4,
-                "ipTags": []
             }
         },
         {
