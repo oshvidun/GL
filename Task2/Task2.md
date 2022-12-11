@@ -1,30 +1,30 @@
 Для создания ВМ мы будем использовать az
 1. Нам необходимо создать ресурс группу
 
-	az group create --name GL-Task2 --location westeurope
+	`az group create --name GL-Task2 --location westeurope`
 	
 	
 2. Создание балансировщика нагрузки
 	
-	az network lb create \
+	`az network lb create \
 		--resource-group GL-Task2 \
 		--name GLTask2Balancer \
 		--frontend-ip-name myFrontEndPool \
 		--backend-pool-name myBackEndPool \
-		--public-ip-address myPublicIP
+		--public-ip-address myPublicIP`
 		
 3. Чтобы балансировщик нагрузки мог следить за состоянием приложения, необходимо настроить пробу работоспособности. Проба работоспособности динамически добавляет или удаляет виртуальные машины из балансировщика нагрузки на основе их ответа на проверки работоспособности. По умолчанию виртуальная машина удаляется из числа машин, на которые балансировщик распределяет нагрузку, после двух последовательных сбоев с интервалом в 15 секунд. Пробу работоспособности можно создать на основе протокола или конкретной страницы проверки работоспособности приложения.
 	
-	az network lb probe create \
+	`az network lb probe create \
 		--resource-group GL-Task2 \
 		--lb-name GLTask2Balancer \
 		--name myHealthProbe \
 		--protocol tcp \
-		--port 80
+		--port 80`
 		
 4. Создадим правило балансировщика нагрузки
 	
-	az network lb rule create \
+	`az network lb rule create \
 		--resource-group GL-Task2 \
 		--lb-name GLTask2Balancer \
 		--name myLoadBalancerRule \
@@ -33,32 +33,32 @@
 		--backend-port 80 \
 		--frontend-ip-name myFrontEndPool \
 		--backend-pool-name myBackEndPool \
-		--probe-name myHealthProbe
+		--probe-name myHealthProbe`
 		
 5. Нам необходимо сделать настройки виртуальной сети
 	создание виртуальной сети
-	az network vnet create \
+	`az network vnet create \
 		--resource-group GL-Task2 \
 		--name myVnet \
-		--subnet-name mySubnet
+		--subnet-name mySubnet`
 		
 	создание группы безопасности сети
-	az network nsg create \
+	`az network nsg create \
 		--resource-group GL-Task2 \
-		--name myNetworkSecurityGroup
+		--name myNetworkSecurityGroup`
 	
 	создание правила группыбезоапсности
-	az network nsg rule create \
+	`az network nsg rule create \
 		--resource-group GL-Task2 \
 		--nsg-name myNetworkSecurityGroup \
 		--name myNetworkSecurityGroupRule \
 		--priority 1001 \
 		--protocol tcp \
-		--destination-port-range 80
+		--destination-port-range 80`
 		
 	создаем 2 виртуальных сетевых аддаптера (по одной на каждую ВМ)	
 	
-	for i in `seq 1 2`; do
+	`or i in ``seq 1 2``; do
 		az network nic create \
 			--resource-group GL-Task2 \
 			--name myNic$i \
@@ -67,7 +67,7 @@
 			--network-security-group myNetworkSecurityGroup \
 			--lb-name GLTask2Balancer \
 			--lb-address-pools myBackEndPool
-	done
+	done`
 	
 6. Создадим конфигурации ВМ используя cloud-init. Для этого в текущей оболочке создадим txt файл
 
@@ -113,13 +113,13 @@ runcmd:
   
  7. Создадим группу доступности
  
-	az vm availability-set create \
+	`az vm availability-set create \
 		--resource-group GL-Task2 \
-		--name myAvailabilitySet
+		--name myAvailabilitySet`
 		
 	Теперь мы можем создать виртуальные машины
 	
-	for i in `seq 1 2`; do
+	`for i in ``seq 1 2``; do
 		az vm create \
 			--resource-group GL-Task2 \
 			--name myVM$i \
@@ -130,4 +130,4 @@ runcmd:
 			--generate-ssh-keys \
 			--custom-data cloud-init.txt \
 			--no-wait
-	done
+	done`
