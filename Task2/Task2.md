@@ -37,17 +37,20 @@
 		
 5. Нам необходимо сделать настройки виртуальной сети
 	создание виртуальной сети
+	
 	`az network vnet create \
 		--resource-group GL-Task2 \
 		--name myVnet \
 		--subnet-name mySubnet`
 		
 	создание группы безопасности сети
+	
 	`az network nsg create \
 		--resource-group GL-Task2 \
 		--name myNetworkSecurityGroup`
 	
 	создание правила группыбезоапсности
+	
 	`az network nsg rule create \
 		--resource-group GL-Task2 \
 		--nsg-name myNetworkSecurityGroup \
@@ -58,7 +61,7 @@
 		
 	создаем 2 виртуальных сетевых аддаптера (по одной на каждую ВМ)	
 	
-	`or i in ``seq 1 2``; do
+	`or i in `seq 1 2`; do
 		az network nic create \
 			--resource-group GL-Task2 \
 			--name myNic$i \
@@ -119,7 +122,7 @@ runcmd:
 		
 	Теперь мы можем создать виртуальные машины
 	
-	`for i in ``seq 1 2``; do
+	`for i in `seq 1 2`; do
 		az vm create \
 			--resource-group GL-Task2 \
 			--name myVM$i \
