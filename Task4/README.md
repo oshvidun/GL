@@ -13,6 +13,7 @@
 
 main.tf
 Настройка провайдера:
+
 '''provider "google" {
 # connect the file that contains the data for authorization
   credentials = file("my.json") 
