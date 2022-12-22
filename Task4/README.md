@@ -231,4 +231,7 @@ sudo -u www-data sed -i 's/localhost/${DB_HOST}/' /srv/www/wordpress/wp-config.p
 systemctl restart apache2 
 ```
 
+![image](https://user-images.githubusercontent.com/85619391/209150199-8d8259a7-6f58-45f1-a8a5-087642c809f4.png)
+
+![image](https://user-images.githubusercontent.com/85619391/209150320-56bf5eb5-b557-491e-9bd0-c89b799265a7.png)
 
