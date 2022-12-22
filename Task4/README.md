@@ -14,32 +14,33 @@
 main.tf
 Настройка провайдера:
 
-'''provider "google" {
-# connect the file that contains the data for authorization
-  credentials = file("my.json") 
-#
-  project = "gl-task4-wordpress-372318"
-  region = "europe-west1"
-} '''
+'''
+provider "google" {
+credentials = file("my.json") 
+project = "gl-task4-wordpress-372318"
+region = "europe-west1"
+} 
+'''
 
 Создаем сеть и подсеть в которую в дальнейшем будут добавлены наши ресурсы
-''' #Create network 
+
+''' 
 resource "google_compute_network" "this" {
   auto_create_subnetworks = false
   name                    = "network-wordpress"
   routing_mode            = "REGIONAL"
 }
-#Create subnet
 resource "google_compute_subnetwork" "this" {
   name          = "network-wordpress"
   ip_cidr_range = "10.20.0.0/28"
   region        = "europe-west1"
   network       = google_compute_network.this.id
-} '''
+} 
+'''
 
 Создадим правило для базы данных
 
-''' #Create databases private IP address
+'''
 resource "google_compute_global_address" "this" {
 
   name          = "private-ip-db-address"
@@ -53,10 +54,12 @@ resource "google_service_networking_connection" "this" {
   network                 = google_compute_network.this.id
   service                 = "servicenetworking.googleapis.com"
   reserved_peering_ranges = [google_compute_global_address.this.name]
-} '''
+} 
+'''
 
 Настроим Firewall
-''' #Fierwall rule
+
+'''
 resource "google_compute_firewall" "wordpress_ingress" {
   name    = "allow-http"
   network = google_compute_network.this.id
@@ -83,10 +86,12 @@ resource "google_compute_firewall" "wordpress_ingress_ssh" {
   }
 
   source_ranges = ["Enter_your IP/32"]
-} '''
+} 
+'''
 
 В качестве базы данных мы не будем создавать отдельный инстанс, а восольземся mySQL PaaS
-''' #Create DB
+
+'''
 resource "google_sql_database_instance" "this" {
   database_version = "MYSQL_5_7"
   name             = "mydb-wordpress"
@@ -171,12 +176,12 @@ resource "google_compute_instance" "this" {
  service_account {
    scopes = ["userinfo-email", "compute-ro", "storage-ro"]
  }
-} '''
+} 
+'''
 
 init.sh
 
-''' #!/usr/bin/env bash
-
+'''
 apt update
 apt install -y apache2 \
             ghostscript \
@@ -223,6 +228,7 @@ sudo -u www-data sed -i 's/username_here/${DB_USERNAME}/' /srv/www/wordpress/wp-
 sudo -u www-data sed -i 's/password_here/${DB_PASSWORD}/' /srv/www/wordpress/wp-config.php
 sudo -u www-data sed -i 's/localhost/${DB_HOST}/' /srv/www/wordpress/wp-config.php
 
-systemctl restart apache2 '''
+systemctl restart apache2 
+'''
 
 
