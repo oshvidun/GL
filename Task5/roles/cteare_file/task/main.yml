@@ -1,0 +1,5 @@
+- name: Create a new empty file with permissions
+  file:
+    path: "/etc/iaas"
+    state: touch
+    mode: 0500
