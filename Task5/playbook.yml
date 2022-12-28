@@ -1,0 +1,12 @@
+- name: create file
+  hosts: iaas
+  gather_facts: yes
+  roles:
+    - create_file
+
+- name: Fetch disto name and version
+  hosts: all
+  gather_facts: true
+  become: true
+  roles:
+    - system_info
